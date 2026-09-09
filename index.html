@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruleway — a rule-based proxy client for iOS</title>
+<meta name="description" content="Ruleway decides per site what gets proxied, blocked, or sent straight out. Shadowsocks, Trojan, VLESS, VMess, SOCKS5 and HTTP, with a real rule engine behind them.">
+<meta name="theme-color" content="#080d1a">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta property="og:title" content="Ruleway — a rule-based proxy client for iOS">
+<meta property="og:description" content="Rules, not switches. Decide per site what gets proxied, blocked, or sent straight out.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="masthead">
+    <img src="icon.png" alt="">
+    <span class="name">Ruleway</span>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">iOS proxy utility</div>
+    <h1>Rules, not switches.</h1>
+    <p class="lede">
+      Most proxy apps give you one switch: everything through the tunnel, or nothing.
+      Ruleway gives you a rule engine — so your bank goes direct, your work domain goes
+      through Tokyo, trackers go nowhere, and you never think about it again.
+    </p>
+
+    <div class="cta-row">
+      <a class="btn" href="#pricing">Three days free</a>
+      <a class="btn ghost" href="privacy.html">What it collects (nothing)</a>
+    </div>
+    <p class="note" style="margin-top:14px">Coming to the App Store. Requires iOS&nbsp;15 or later.</p>
+
+    <div class="slab">
+      <div class="slab-head">default.conf — the rules, in the order they’re read</div>
+<pre><span class="c"># Local and private space always goes direct.</span>
+<span class="k">IP-CIDR</span>,192.168.0.0/16,<span class="p-direct">DIRECT</span>,no-resolve
+<span class="k">IP-CIDR</span>,10.0.0.0/8,<span class="p-direct">DIRECT</span>,no-resolve
+
+<span class="c"># Things that break when proxied.</span>
+<span class="k">DOMAIN-SUFFIX</span>,<span class="v">apple.com</span>,<span class="p-direct">DIRECT</span>
+<span class="k">DOMAIN-SUFFIX</span>,<span class="v">icloud.com</span>,<span class="p-direct">DIRECT</span>
+
+<span class="c"># Things you never asked to load.</span>
+<span class="k">DOMAIN-SUFFIX</span>,<span class="v">doubleclick.net</span>,<span class="p-reject">REJECT</span>
+<span class="k">DOMAIN-KEYWORD</span>,<span class="v">analytics</span>,<span class="p-reject">REJECT</span>
+
+<span class="c"># Everything else picks the fastest node that’s still alive.</span>
+<span class="k">GEOIP</span>,CN,<span class="p-direct">DIRECT</span>
+<span class="k">FINAL</span>,<span class="p-proxy">Auto</span></pre>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="how">
+    <h2>What’s actually in it</h2>
+    <p class="muted">
+      The engine is the product. Everything else is a way to look at it.
+    </p>
+
+    <div class="grid">
+      <div>
+        <h3>A real rule engine</h3>
+        <p>Seventeen matchers — domain, keyword, IP range, GEOIP, ASN, process, user agent, port,
+          time, network — with AND / OR / NOT, read top to bottom, first match wins.</p>
+      </div>
+      <div>
+        <h3>Groups that choose for you</h3>
+        <p>Select, URL-test, fallback, load-balance and random. Point a rule at a group and it
+          uses whichever node is fastest, or whichever one is still answering.</p>
+      </div>
+      <div>
+        <h3>It doesn’t leak</h3>
+        <p>Proxied names resolve at the far end, not on your phone. QUIC and WebRTC are blocked by
+          default so nothing slips past the rules on a protocol they don’t cover.</p>
+      </div>
+      <div>
+        <h3>You can see what happened</h3>
+        <p>Every request, the rule that matched it, the node it took, and the bytes it moved.
+          Tap a row to turn it into a rule — that’s how you learn the syntax.</p>
+      </div>
+      <div>
+        <h3>Config is a document</h3>
+        <p>Edit it in the interface or edit the text — same object, and untouched lines keep their
+          bytes exactly. Load it from a URL and keep your own edits on top with <code>include</code>.</p>
+      </div>
+      <div>
+        <h3>Test before you trust</h3>
+        <p>Type a URL, see which rule catches it and where it would go, without connecting.
+          Latency tests measure an end-to-end CONNECT, not a TCP handshake.</p>
+      </div>
+    </div>
+
+    <h2 style="margin-top:56px">Protocols</h2>
+    <p class="muted">You bring your own servers. Ruleway speaks to them.</p>
+    <div class="chips">
+      <span class="chip on">Shadowsocks</span>
+      <span class="chip on">Trojan</span>
+      <span class="chip on">VLESS</span>
+      <span class="chip on">VMess</span>
+      <span class="chip on">SOCKS5</span>
+      <span class="chip on">HTTP / HTTPS</span>
+      <span class="chip on">Subscriptions</span>
+      <span class="chip on">Clash YAML</span>
+      <span class="chip on">QR import</span>
+    </div>
+    <p class="note" style="margin-top:16px">
+      Hysteria2, TUIC and WireGuard are registered behind the same interface and not yet dialable.
+      The app says so in the server list rather than failing quietly.
+    </p>
+  </section>
+
+  <section id="privacy">
+    <h2>Ruleway collects nothing</h2>
+    <p class="muted">
+      Not “anonymised”. Not “aggregated”. There is no account, no analytics SDK, no advertising
+      identifier, and no server of ours that your traffic or your settings ever reach.
+    </p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>What</th><th>Where it lives</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Servers, rules, configs</td><td>Your device — and your own iCloud, if you turn sync on</td></tr>
+          <tr><td>Request and DNS logs</td><td>Your device, off by default, deletable, never sent</td></tr>
+          <tr><td>Traffic counters</td><td>Your device</td></tr>
+          <tr><td>Your proxy traffic</td><td>The servers <em>you</em> added. We don’t run any of them.</td></tr>
+          <tr><td>Payment details</td><td>The App Store. The app never sees them.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:22px"><a href="privacy.html">Read the full privacy policy →</a></p>
+  </section>
+
+  <section id="pricing">
+    <h2>Three days free, then pick a plan</h2>
+    <p class="muted">
+      One subscription, both plans in the same group, so switching is an upgrade rather than a
+      second purchase. Cancel any time in Settings — before the trial ends and you’re not charged.
+    </p>
+
+    <div class="plans">
+      <div class="plan best">
+        <div class="term">Yearly</div>
+        <div class="price">$7.99</div>
+        <div class="per">per year — about $0.67 a month</div>
+        <span class="tag">3 days free · saves 33%</span>
+      </div>
+      <div class="plan">
+        <div class="term">Monthly</div>
+        <div class="price">$0.99</div>
+        <div class="per">per month</div>
+        <span class="tag">3 days free</span>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:22px">
+      Prices shown in USD; your local price is set by the App Store. The subscription renews
+      automatically unless cancelled at least 24 hours before the period ends. Payment is charged
+      to your Apple Account. Manage or cancel in Settings → Apple Account → Subscriptions.
+    </p>
+  </section>
+</div>
+
+<div class="wrap">
+  <footer>
+    <nav>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="support.html">Support</a>
+      <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a>
+    </nav>
+    <div>Ruleway is a network utility. You supply the servers; it decides what goes where.</div>
+  </footer>
+</div>
+
+</body>
+</html>
