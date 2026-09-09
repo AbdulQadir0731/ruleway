@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Ruleway</title>
+<meta name="description" content="Getting started with Ruleway, common problems, and how to get in touch.">
+<meta name="theme-color" content="#080d1a">
+<link rel="icon" href="icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="masthead">
+    <a href="index.html" style="display:flex;align-items:center;gap:14px;color:inherit">
+      <img src="icon.png" alt=""><span class="name">Ruleway</span>
+    </a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </header>
+
+  <div class="prose">
+    <h1 style="font-size:clamp(2rem,5vw,2.6rem);margin-bottom:10px">Support</h1>
+    <p class="muted" style="margin-top:4px">
+      Ruleway is a proxy client. You supply the servers — from a provider, or your own — and the
+      app decides what goes through them.
+    </p>
+
+    <h2>Getting started</h2>
+    <ul>
+      <li><strong>Add a server.</strong> Home → <em>Add Server</em> to type one in,
+        <em>Scan QR Code</em> for a code from your provider, or <em>Paste a Link</em> if you
+        copied an <code>ss://</code>, <code>trojan://</code>, <code>vless://</code> or
+        <code>vmess://</code> link.</li>
+      <li><strong>Or add a subscription.</strong> Home → <em>Add Subscription</em> and paste the
+        URL your provider gave you. The server list updates itself from then on.</li>
+      <li><strong>Check it works.</strong> Tap <em>Connectivity Test</em>. A working node answers
+        in milliseconds; a dead one says <em>timeout</em>.</li>
+      <li><strong>Turn it on.</strong> Flip the switch on Home. iOS will ask once to add a VPN
+        configuration — that profile is created on your device and points at your servers.</li>
+    </ul>
+
+    <h2>Common problems</h2>
+
+    <h3>“Nothing loads once I connect”</h3>
+    <p class="muted">
+      Usually no server is selected, or the selected one is dead. Ruleway fails closed on purpose:
+      a rule pointing at PROXY with nothing behind it blocks rather than leaking straight out.
+      Run a connectivity test and pick a node that answers.
+    </p>
+
+    <h3>“My subscription imported nothing”</h3>
+    <p class="muted">
+      Some providers return a different format depending on the user agent. Settings →
+      Subscriptions → Updating lets you change it. The importer reads base64 payloads, plain link
+      lists, and Clash YAML.
+    </p>
+
+    <h3>“One site is broken while everything else is fine”</h3>
+    <p class="muted">
+      Something is being proxied that shouldn’t be, or blocked that shouldn’t be. Turn on Data →
+      Record proxy requests, load the site, and look at the log: it names the rule that caught each
+      request. Tap the row to add a rule sending that host DIRECT.
+    </p>
+
+    <h3>“Which rule would catch this?”</h3>
+    <p class="muted">
+      Config → <em>Test a Rule</em>. Type a URL and it tells you the matching rule and the policy
+      it resolves to, without connecting.
+    </p>
+
+    <h2>Subscription and billing</h2>
+    <ul>
+      <li>Three days free, then $0.99 a month or $7.99 a year. Both plans are in one subscription
+        group, so switching is an upgrade, not a second purchase.</li>
+      <li>Cancel any time before the trial ends and you are not charged.</li>
+      <li>Manage or cancel: Settings → Apple Account → Subscriptions. Billing is handled by Apple;
+        we cannot see or change it.</li>
+      <li>Changed device or reinstalled? Open the paywall and tap <em>Restore</em>.</li>
+      <li>Refunds are handled by Apple at
+        <a href="https://reportaproblem.apple.com">reportaproblem.apple.com</a>.</li>
+    </ul>
+
+    <h2>Requirements</h2>
+    <p class="muted">iPhone or iPad running iOS 15 or later.</p>
+
+    <h2>Get in touch</h2>
+    <p class="muted">
+      Bugs, questions and feature requests:
+      <a href="https://github.com/AbdulQadir0731/ruleway/issues">open an issue on GitHub</a>.
+      Include what you were doing, which protocol the server uses, and what the app said —
+      never paste a server link or password into a public issue.
+    </p>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use</a>
+    </nav>
+  </footer>
+</div>
+
+</body>
+</html>
